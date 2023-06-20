@@ -1,6 +1,6 @@
 # HealthTrackServer
 Backend Java Server Powered by Springboot，the Health-track calculator utilizes user-provided information, including age, lifestyle, and medical conditions, to effectively analyze relevant databases. This analysis yields real-life disease data tailored to the user's specific information. Furthermore, the Health-track calculator offers personalized advice on adopting healthy lifestyles. Additionally, it provides comprehensive information on specific medications, including dosage instructions, potential side effects, and necessary precautions to ensure user safety.
-[TOC]
+![TOC]
 ## Coding Guideline
 ### General
 - The programming of the core functionalities should be based on the abstract classes or interfaces
