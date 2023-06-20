@@ -1,0 +1,11 @@
+server:
+  port: 8083
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://111.231.61.133/ItemBase?useSSL=false&allowPublicKeyRetrieval=true
+    username: shexpi8fmal
+    password: henaogbu99da
+    type: com.alibaba.druid.pool.DruidDataSource
