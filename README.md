@@ -36,7 +36,7 @@ Backend Java Server Powered by Springboot，the Health-track calculator utilizes
 - Count来获取统计值， insert 来插入数据, delete 删除数据, update 更新数据， 其他例如 remove, save 等等都不应被使用
 
 ### Features
-- Use warning annotation if unsure about code.
-``enum Type{DEBUG, REVIEW_NEEDED, ADDITIONAL_FEATURE, DELETE_IN_FUTURE}``java
+- Use warning annotation if unsure about code ``enum Type{DEBUG, REVIEW_NEEDED, ADDITIONAL_FEATURE, DELETE_IN_FUTURE}``
+- 如果对自己代码不确定，使用 @Warning 注解
 ## System Architecture
 <img src="https://github.com/James777G/HealthTrackServer/assets/110001509/962130ea-ca0a-4c0a-baac-6bba08556fa9" width="460" height="360">
