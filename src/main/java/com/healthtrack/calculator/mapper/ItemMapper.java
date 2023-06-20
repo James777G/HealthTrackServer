@@ -4,10 +4,13 @@ import com.healthtrack.calculator.annotation.Warning;
 import com.healthtrack.calculator.pojo.Item;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.scheduling.annotation.Async;
 
 @Mapper
 @Warning(Warning.Type.DELETE_IN_FUTURE)
 public interface ItemMapper {
+
+
     @Select("select * from itemtable where itemId = #{id}")
     Item getById(Integer id);
 }
