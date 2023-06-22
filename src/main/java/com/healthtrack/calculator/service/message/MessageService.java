@@ -7,4 +7,6 @@ public interface MessageService {
 
     void sendMessage(Object message);
 
+    Object sendAndReceive(Object message);
+
 }
