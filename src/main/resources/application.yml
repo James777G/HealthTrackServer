@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://111.231.61.133/ItemBase?useSSL=false&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://111.231.61.133/healthTrackDatabase?useSSL=false&allowPublicKeyRetrieval=true
     username: shexpi8fmal
     password: henaogbu99da
     type: com.alibaba.druid.pool.DruidDataSource
@@ -17,4 +17,9 @@ spring:
   cache:
     type: caffeine
     caffeine:
-      spec: initialCapacity=100,maximumCapacity=500,expireAfterAccess=900s
+      spec: initialCapacity=100,maximumCapacity=500,expireAfterAccess=1800s
+  main:
+    allow-circular-references: true
+
+mybatis:
+  type-handlers-package: com.healthtrack.calculator.config.mybatis

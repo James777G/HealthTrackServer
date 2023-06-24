@@ -15,8 +15,8 @@ public interface MessageService {
      * Sends and receives message from other services
      * Implementation of RPC
      * @param message the message specified in Json format
-     * @return an object also specified in Json format
+     * @return an string also specified in Json format
      */
-    Object sendAndReceive(Object message);
+    Object sendAndReceive(String message);
 
 }
