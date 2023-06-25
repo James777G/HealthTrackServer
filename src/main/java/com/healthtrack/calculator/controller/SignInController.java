@@ -21,4 +21,10 @@ public class SignInController {
         log.info("Processing Request1");
         return logInService.login(user);
     }
+
+    @PostMapping("/test")
+    public ResponseBody<LogInUser> test(){
+        log.info("Processing Request2");
+        return null;
+    }
 }

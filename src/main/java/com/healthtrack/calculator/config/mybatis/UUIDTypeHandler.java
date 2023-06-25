@@ -10,6 +10,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+
+/**
+ * Type handlers for supporting UUID type,
+ * registered in spring
+ */
 @MappedTypes(UUID.class)
 public class UUIDTypeHandler extends BaseTypeHandler<UUID> {
 

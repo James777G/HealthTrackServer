@@ -16,7 +16,7 @@ public class EncodingServiceProvider implements EncodingService{
     }
 
     @Override
-    public boolean match(String rawData) {
-        return false;
+    public boolean match(String rawData, String encodedData) {
+        return passwordEncoder.matches(rawData, encodedData);
     }
 }
