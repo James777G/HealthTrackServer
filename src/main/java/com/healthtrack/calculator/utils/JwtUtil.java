@@ -19,8 +19,11 @@ import java.util.Date;
  *     检测 token 是否已经过期
  *     5. 服务器本身不存储任何 Token
  * </p>
+ *
+ * Thus JWT doesn't need to be cached
  */
 @Slf4j
+@SuppressWarnings("all")
 public class JwtUtil {
 
     // Obtain JWT Secret Key from environment variables

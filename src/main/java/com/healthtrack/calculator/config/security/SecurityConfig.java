@@ -1,5 +1,6 @@
 package com.healthtrack.calculator.config.security;
 
+import com.healthtrack.calculator.filter.JwtAuthenticationFilter;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,15 +13,28 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.Collections;
 
+
+/**
+ * Setting up security filter chain:
+ * <p>
+ *     1. Allow any requests to the "/login" URL, regardless of the user's authentication status.
+ *     2. Allow any requests already authenticated
+ *     3. Unauthenticated requests must authenticate first
+ * </p>
+ */
 @Configuration
 public class SecurityConfig {
 
 
     @Resource
     private UserDetailsService userDetailsService;
+
+    @Resource
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 
     @Bean
@@ -52,6 +66,9 @@ public class SecurityConfig {
                 .requestMatchers("/login").permitAll()
                 .anyRequest()
                 .authenticated());
+
+        // register
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
 
     }

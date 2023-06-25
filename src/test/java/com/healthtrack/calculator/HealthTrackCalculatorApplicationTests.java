@@ -28,7 +28,7 @@ class HealthTrackCalculatorApplicationTests {
         boolean a = JwtUtil.validateToken("eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKYW1lczc3N0ciLCJleHAiOjE2ODc1NzI3MTR9._zRNj_lME7ZK-5_JiyLA8zbyMYwzt3QXYHJECfYfdkxI1gdlrw7QqpJeUYlR4vTj-UQO6YKsfLxlFGk8772QRA");
         System.out.println(a);
 
-//        System.out.println(james777G);
+
     }
 
 

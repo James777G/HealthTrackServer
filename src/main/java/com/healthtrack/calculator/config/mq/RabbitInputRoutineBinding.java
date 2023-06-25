@@ -5,6 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * This class creates a bean consisting all the necessary information for setting up
+ * message queue, and is independent of any functionalities
+ */
 @Data
 @Component("inputBinding")
 @PropertySource("classpath:mq/RabbitMQ.properties")
