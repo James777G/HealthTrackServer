@@ -34,7 +34,7 @@ public class UserCredentialServiceProvider implements UserCredentialService{
     }
 
     @Override
-    @Cacheable("users_credentials")
+    @Cacheable(value = "users_credentials", unless = "#result == null")
     @Transactional(propagation = Propagation.SUPPORTS, readOnly = true, rollbackFor = TransactionException.class)
     public UserCredential getUserCredentialByUsername(String username) {
         log.info("setting up cache for users_credentials with key " + username);

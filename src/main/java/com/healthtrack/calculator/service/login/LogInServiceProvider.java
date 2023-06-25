@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -27,14 +28,23 @@ public class LogInServiceProvider implements LogInService{
 
         // authentication
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword());
-        Authentication authenticate = authenticationManager.authenticate(token);
 
-        // create JWT
-        UserDetails userDetails = (UserDetails) authenticate.getPrincipal();
-        String username = userDetails.getUsername();
-        String JWT = JwtUtil.generateToken(username);
+        try{
+            Authentication authenticate = authenticationManager.authenticate(token);
 
-        return new ResponseBody<>(true, "Login is successful", JWT, null);
+            // create JWT
+            UserDetails userDetails = (UserDetails) authenticate.getPrincipal();
+            String username = userDetails.getUsername();
+            String JWT = JwtUtil.generateToken(username);
+            return new ResponseBody<>(true, "Login is successful", JWT, null);
+
+        } catch(AuthenticationException e){
+
+            return new ResponseBody<>(false, "Wrong User Credential", null, null);
+        }
+
+
+
 
     }
 }
