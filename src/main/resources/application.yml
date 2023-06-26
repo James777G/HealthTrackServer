@@ -23,3 +23,7 @@ spring:
 
 mybatis:
   type-handlers-package: com.healthtrack.calculator.config.mybatis
+
+logging:
+  level:
+    org.springframework.security: DEBUG

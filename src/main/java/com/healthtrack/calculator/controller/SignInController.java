@@ -5,6 +5,7 @@ import com.healthtrack.calculator.domain.LogInUser;
 import com.healthtrack.calculator.service.login.LogInService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +24,13 @@ public class SignInController {
     }
 
     @PostMapping("/test")
-    public ResponseBody<LogInUser> test(){
+    public String test(){
         log.info("Processing Request2");
-        return null;
+        return "test";
+    }
+
+    @GetMapping("/test")
+    public String test2(){
+        return "test2";
     }
 }

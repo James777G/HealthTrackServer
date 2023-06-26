@@ -1,5 +1,6 @@
 package com.healthtrack.calculator.config.security;
 
+import com.healthtrack.calculator.filter.AuthenticatedLoginFilter;
 import com.healthtrack.calculator.filter.JwtAuthenticationFilter;
 import jakarta.annotation.Resource;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,9 @@ public class SecurityConfig {
     @Resource
     private JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    @Resource
+    private AuthenticatedLoginFilter authenticatedLoginFilter;
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -63,12 +67,13 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/login").permitAll()
+                .requestMatchers("/login").anonymous()
                 .anyRequest()
                 .authenticated());
 
         // register
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(authenticatedLoginFilter, JwtAuthenticationFilter.class);
         return http.build();
 
     }
