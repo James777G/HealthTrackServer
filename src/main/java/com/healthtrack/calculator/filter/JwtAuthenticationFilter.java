@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
@@ -51,11 +52,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     new UsernamePasswordAuthenticationToken(userCredentialByUsername.getUsername(),
                             userCredentialByUsername.getPassword(), null);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-
             filterChain.doFilter(request, response);
+            return;
         }
 
         filterChain.doFilter(request, response);
 
     }
+
 }

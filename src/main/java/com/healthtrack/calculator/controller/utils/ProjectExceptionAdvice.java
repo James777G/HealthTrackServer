@@ -12,7 +12,7 @@ public class ProjectExceptionAdvice {
 
     @ExceptionHandler
     @Warning(Warning.Type.ADDITIONAL_FEATURE)
-    public void doSystemException(SystemException exception){
-        log.error(exception.getMessage());
+    public void doSystemException(Exception exception){
+        log.error("Customized error: " + exception.getMessage());
     }
 }
