@@ -1,10 +1,12 @@
 package com.healthtrack.calculator.service.message;
 
 import com.healthtrack.calculator.config.mq.RabbitInputRoutineBinding;
+import com.healthtrack.calculator.domain.UserInfo;
 import jakarta.annotation.Resource;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
+import org.springframework.amqp.utils.SerializationUtils;
 import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
@@ -41,5 +43,12 @@ public class RabbitMessageQueueServiceProvider implements MessageService{
         }
 
         return messageBody;
+    }
+    //-----------------------------------------------
+    public byte[] serialize(UserInfo userInfo) {
+        return SerializationUtils.serialize(userInfo);
+    }
+    public UserInfo deserialize(byte[] bytes) {
+        return (UserInfo) SerializationUtils.deserialize(bytes);
     }
 }
