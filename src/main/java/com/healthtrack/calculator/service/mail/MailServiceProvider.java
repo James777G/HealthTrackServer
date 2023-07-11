@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class MailServiceProvider implements MailService {
 
     private String message;
-    private SimpleOrderManager orderManager;
+    private SimpleOrderManager orderManager = new SimpleOrderManager();
 
 
     @Override
@@ -40,7 +40,7 @@ public class MailServiceProvider implements MailService {
                 "    </p>\n" +
                 "</div>", recipient);
     }
-    
+
     @Override
     public void sendHtmlMail(String subject, String html, String recipient) throws MessagingException {
         orderManager.sendHtmlEmail(subject, html, recipient);

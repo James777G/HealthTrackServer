@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 @Data
 public class SimpleOrderManager{
 
+
     private JavaMailSender mailSender;
 
     private SimpleMailMessage templateMessage;
