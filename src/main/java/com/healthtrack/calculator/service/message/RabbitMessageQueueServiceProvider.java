@@ -31,7 +31,7 @@ public class RabbitMessageQueueServiceProvider implements MessageService{
         messageProperties.setContentEncoding("UTF-8");
         messageProperties.setContentType(MessageProperties.CONTENT_TYPE_TEXT_PLAIN);
 
-
+        System.out.println("Sending Message: " + message);
         Message msg = new Message(message.getBytes(), messageProperties);
         Object response = amqpTemplate.convertSendAndReceive(inputBinding.getExchangeName(), inputBinding.getRoutineKey(), msg);
 
@@ -41,14 +41,8 @@ public class RabbitMessageQueueServiceProvider implements MessageService{
         if (response instanceof byte[]) {
             messageBody = new String((byte[]) response, StandardCharsets.UTF_8);
         }
-
+        System.out.println("Response: " + messageBody);
         return messageBody;
     }
-    //-----------------------------------------------
-    public byte[] serialize(UserInfo userInfo) {
-        return SerializationUtils.serialize(userInfo);
-    }
-    public UserInfo deserialize(byte[] bytes) {
-        return (UserInfo) SerializationUtils.deserialize(bytes);
-    }
+
 }
