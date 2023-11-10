@@ -2,7 +2,10 @@ package com.healthtrack.calculator.controller;
 
 import com.healthtrack.calculator.domain.ResponseBody;
 import com.healthtrack.calculator.domain.LogInUser;
+import com.healthtrack.calculator.domain.SignUpRequest;
+import com.healthtrack.calculator.exception.SystemException;
 import com.healthtrack.calculator.service.login.LogInService;
+import com.healthtrack.calculator.service.login.SignUpService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,20 +20,30 @@ public class SignInController {
     @Resource
     private LogInService logInService;
 
+    @Resource
+    private SignUpService signUpService;
+
     @PostMapping("/login")
     public ResponseBody<LogInUser> logIn(@RequestBody LogInUser user){
-        log.info("Processing Request1");
+        log.info("Processing Log In Request For " + user.getUsername());
         return logInService.login(user);
     }
 
-    @PostMapping("/test")
-    public String test(){
-        log.info("Processing Request2");
-        return "test";
+    @PostMapping("/signup")
+    public ResponseBody<SignUpRequest> signUp(@RequestBody SignUpRequest request) throws SystemException {
+        log.info("Processing Sign Up Request For " + request.getUsername());
+        return signUpService.signUp(request);
+    }
+
+    @PostMapping("/verify")
+    public ResponseBody<SignUpRequest> verify(@RequestBody SignUpRequest request) throws SystemException {
+        log.info("Processing Verify Request For " + request.getUsername());
+        return signUpService.verify(request);
     }
 
     @GetMapping("/test")
-    public String test2(){
-        return "test2";
+    public String test(){
+        return "123";
     }
+
 }

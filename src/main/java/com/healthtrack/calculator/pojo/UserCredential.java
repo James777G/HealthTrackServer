@@ -11,6 +11,7 @@ public class UserCredential implements Serializable {
     private UUID id;
     private String username;
     private String password;
+    private String email;
 
 
 }

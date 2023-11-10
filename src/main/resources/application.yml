@@ -17,9 +17,20 @@ spring:
   cache:
     type: caffeine
     caffeine:
-      spec: initialCapacity=100,maximumCapacity=500,expireAfterAccess=1800s
+      spec: initialCapacity=100,maximumSize=500,expireAfterAccess=1800s
   main:
     allow-circular-references: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: healthtrack.web@gmail.com
+    password: edik kktk kndx jpyp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 mybatis:
   type-handlers-package: com.healthtrack.calculator.config.mybatis
@@ -27,3 +38,4 @@ mybatis:
 logging:
   level:
     org.springframework.security: DEBUG
+

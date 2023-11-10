@@ -65,16 +65,15 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
+                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection as per your setup
                 .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/login").anonymous()
-                .anyRequest()
-                .authenticated());
+                        .requestMatchers("/signup").permitAll() // Permit all access to /signup
+                        .requestMatchers("/verify").permitAll()
+                        .requestMatchers("/login").anonymous() // Only anonymous users can access login
+                        .anyRequest().authenticated()) // All other requests should be authenticated
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class) // Add your JWT filter
+                .addFilterAfter(authenticatedLoginFilter, JwtAuthenticationFilter.class); // Add your authenticated login filter
 
-        // register
-        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAfter(authenticatedLoginFilter, JwtAuthenticationFilter.class);
         return http.build();
-
     }
 }
