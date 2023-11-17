@@ -18,7 +18,7 @@ public class WebConfiguration {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("*") // replace with the origin of your client-side app
+                        .allowedOriginPatterns("*") // replace with the origin of your client-side app
                         .allowedMethods("*")
                         .allowedHeaders("*") // Allow all headers
                         .allowCredentials(true); // Allow credentials
