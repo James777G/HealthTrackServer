@@ -35,6 +35,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService{
     private CacheManager cacheManager;
 
     @Override
+    @Async
     public void sendVerificationCode(UserCredential user, String code) throws SystemException {
         try {
             log.info("SENDING VERIFICATION CODE TO " + user.getUsername());

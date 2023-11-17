@@ -5,6 +5,7 @@ import com.healthtrack.calculator.pojo.UserCredential;
 import com.healthtrack.calculator.service.security.EncodingService;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -13,6 +14,7 @@ import org.springframework.transaction.TransactionException;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
@@ -25,6 +27,9 @@ public class UserCredentialServiceProvider implements UserCredentialService{
 
     @Resource
     private EncodingService encodingService;
+
+    @Resource
+    private CacheManager cacheManager;
 
 
     @Override
@@ -42,7 +47,6 @@ public class UserCredentialServiceProvider implements UserCredentialService{
     }
 
     @Override
-    @CachePut(value = "users_credentials", key = "#userCredential.username")
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = TransactionException.class)
     public void insertUserCredential(UserCredential userCredential) {
         log.info("setting up cache for users_credentials with key " + userCredential.getUsername());
@@ -50,6 +54,7 @@ public class UserCredentialServiceProvider implements UserCredentialService{
         String encode = encodingService.encode(rawPassword);
         userCredential.setPassword(encode);
         userCredentialMapper.insertUserCredential(userCredential);
+        Objects.requireNonNull(cacheManager.getCache("users_credentials")).put(userCredential.getUsername(), userCredential);
     }
 
     @Override

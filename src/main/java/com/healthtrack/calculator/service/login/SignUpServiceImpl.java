@@ -8,11 +8,14 @@ import com.healthtrack.calculator.service.email.VerificationCodeService;
 import com.healthtrack.calculator.service.userCredential.UserCredentialService;
 import com.healthtrack.calculator.utils.JwtUtil;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionException;
 
 import java.util.UUID;
 
 @Service("signUpService")
+@Slf4j
 public class SignUpServiceImpl implements SignUpService{
 
     @Resource
@@ -24,10 +27,14 @@ public class SignUpServiceImpl implements SignUpService{
     @Override
     public ResponseBody<SignUpRequest> signUp(SignUpRequest request) throws SystemException {
         if(userCredentialService.getUserCredentialByUsername(request.getUsername()) == null){
-            verificationCodeService.sendVerificationCode(convertToUserCredential(request), verificationCodeService.generateCode());
-            return new ResponseBody<>(true, "Signup is successful", null, null);
+            try{
+                verificationCodeService.sendVerificationCode(convertToUserCredential(request), verificationCodeService.generateCode());
+            }catch(SystemException e){
+                return new ResponseBody<>(false, "Email Address Is Not Valid", null, 304, null);
+            }
+            return new ResponseBody<>(true, "Signup is successful", null, 200, null);
         }
-        return new ResponseBody<>(false, "Username already exists", null, null);
+        return new ResponseBody<>(false, "Username already exists", null, 305, null);
     }
 
     @Override
@@ -35,10 +42,18 @@ public class SignUpServiceImpl implements SignUpService{
         if(verificationCodeService.verifyCode(request.getUsername(), request.getVerificationCode())) {
             UserCredential user = convertToUserCredential(request);
             user.setId(UUID.randomUUID());
-            userCredentialService.insertUserCredential(user);
-            return new ResponseBody<>(true, "Verification is successful", JwtUtil.generateToken(request.getUsername()), null);
+            try{
+                userCredentialService.insertUserCredential(user);
+            }catch(Exception e){
+                log.warn("Database Error - Duplicates Detected");
+                // Duplicates
+                return new ResponseBody<>(false, "Database Error - Duplicates", null, 305, null);
+            }
+            // Success
+            return new ResponseBody<>(true, "Verification is successful", JwtUtil.generateToken(request.getUsername()), 200, null);
         }
-        return new ResponseBody<>(false, "Verification failed", null, null);
+        // Verification Code Wrong
+        return new ResponseBody<>(false, "Verification failed", null, 401, null);
     }
 
     private UserCredential convertToUserCredential(SignUpRequest request){

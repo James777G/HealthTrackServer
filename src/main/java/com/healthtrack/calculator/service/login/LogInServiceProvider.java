@@ -36,11 +36,11 @@ public class LogInServiceProvider implements LogInService{
             UserDetails userDetails = (UserDetails) authenticate.getPrincipal();
             String username = userDetails.getUsername();
             String JWT = JwtUtil.generateToken(username);
-            return new ResponseBody<>(true, "Login is successful", JWT, null);
+            return new ResponseBody<>(true, "Login is successful", JWT, 200, null);
 
         } catch(AuthenticationException e){
 
-            return new ResponseBody<>(false, "Wrong User Credential", null, null);
+            return new ResponseBody<>(false, "Wrong User Credential", null, 401, null);
         }
 
 

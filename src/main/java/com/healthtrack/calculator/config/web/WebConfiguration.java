@@ -19,7 +19,9 @@ public class WebConfiguration {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:3000") // replace with the origin of your client-side app
-                        .allowedMethods("*");
+                        .allowedMethods("*")
+                        .allowedHeaders("*") // Allow all headers
+                        .allowCredentials(true); // Allow credentials
             }
         };
     }

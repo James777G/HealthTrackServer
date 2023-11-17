@@ -19,6 +19,7 @@ public class ResponseBody<T> implements Serializable {
     private Boolean flag; // Status of the operation: true for success
     private String message; // To provide more information or context about the login result
     private String token; // JWT
+    private Integer statusCode;
 
     private T data;
 }

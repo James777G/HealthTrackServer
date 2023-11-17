@@ -63,9 +63,11 @@ public class SecurityConfig {
 
 
     @Bean
+    @SuppressWarnings("all")
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable) // Disable CSRF protection as per your setup
+                .cors().and() // Add this to integrate with WebMvcConfigurer CORS settings
+                .csrf().disable() // Disable CSRF protection as per your setup
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/signup").permitAll() // Permit all access to /signup
                         .requestMatchers("/verify").permitAll()

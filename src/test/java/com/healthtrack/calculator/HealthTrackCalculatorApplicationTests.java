@@ -1,5 +1,6 @@
 package com.healthtrack.calculator;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.healthtrack.calculator.exception.SystemException;
 import com.healthtrack.calculator.pojo.UserCredential;
 import com.healthtrack.calculator.service.TestService;
@@ -7,13 +8,15 @@ import com.healthtrack.calculator.service.email.VerificationCodeService;
 import com.healthtrack.calculator.service.email.VerificationCodeServiceImpl;
 import com.healthtrack.calculator.service.message.MessageService;
 import com.healthtrack.calculator.service.userCredential.UserCredentialService;
+import com.healthtrack.calculator.utils.JsonUtil;
 import com.healthtrack.calculator.utils.JwtUtil;
 import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.UUID;
+import java.util.*;
 
 @SpringBootTest
 @Slf4j
@@ -41,8 +44,17 @@ class HealthTrackCalculatorApplicationTests {
 
 
     @Test
-    void test1(){
-        System.out.println(messageService.sendAndReceive("peter wang").toString());
+    void test1() throws JsonProcessingException {
+        List<String> list = new ArrayList<>();
+        list.add("cough");
+        list.add("congestion");
+        list.add("acidity");
+//        list.add("vomiting");
+        list.add("fatigue");
+//        list.add("anxiety");
+        Map<String, List<String>> symptoms = new HashMap<>();
+        symptoms.put("symptoms", list);
+        System.out.println("The response is: " + messageService.sendAndReceive(JsonUtil.objectToJson(symptoms)));
     }
 
 
