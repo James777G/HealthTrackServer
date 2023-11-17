@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Collections;
 
@@ -66,7 +67,7 @@ public class SecurityConfig {
     @SuppressWarnings("all")
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http
-                .cors().and() // Add this to integrate with WebMvcConfigurer CORS settings
+                .cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues()).and() // Add this to integrate with WebMvcConfigurer CORS settings
                 .csrf().disable() // Disable CSRF protection as per your setup
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/signup").permitAll() // Permit all access to /signup
