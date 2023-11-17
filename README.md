@@ -1,5 +1,15 @@
+![HealthTrack Coupling](https://img.shields.io/static/v1?label=HealthTrack&message=server&color=blue)
+![SpringBoot](https://img.shields.io/static/v1?label=SpringBoot&message=v3.1.0&color=brightgreen)
+![Maven](https://img.shields.io/static/v1?label=Maven&message=v3.6.3&color=orange)
+
+
 # HealthTrackServer
 Backend Java Server Powered by Springboot，the Health-track calculator utilizes user-provided information, including age, lifestyle, and medical conditions, to effectively analyze relevant databases. This analysis yields real-life disease data tailored to the user's specific information. Furthermore, the Health-track calculator offers personalized advice on adopting healthy lifestyles. Additionally, it provides comprehensive information on specific medications, including dosage instructions, potential side effects, and necessary precautions to ensure user safety.
+
+## Run
+```
+java -jar application.jar
+```
 
 ## Coding Guideline
 ### General
