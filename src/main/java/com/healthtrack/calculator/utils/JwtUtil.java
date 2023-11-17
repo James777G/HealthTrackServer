@@ -27,7 +27,7 @@ import java.util.Date;
 public class JwtUtil {
 
     // Obtain JWT Secret Key from environment variables
-    private static final String SECRET_KEY = System.getenv("JWT_SECRET_KEY");
+    private static final String SECRET_KEY = System.getenv("JWT_AUTHORIZATION");
     private static final long EXPIRATION_TIME = 900000; // 15 minutes in milliseconds
 
 
